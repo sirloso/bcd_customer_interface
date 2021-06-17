@@ -22,9 +22,12 @@ export const userSlice = createSlice({
 	reducers: {
 		addUser: (state,action:PayloadAction<UserData>) => {
 			let otherOrders = action.payload.OtherOrders
-			state.currentOrder = action.payload
 
-			state.currentOrder.OtherOrders = []
+			const newOrder = {...action.payload}
+			newOrder.OtherOrders = []
+
+			state.currentOrder = newOrder
+
 
 			state.otherOrders = otherOrders || []
 			state.userID = state.currentOrder.UserID

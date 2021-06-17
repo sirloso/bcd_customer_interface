@@ -57,5 +57,11 @@ describe('user reducer', () => {
 		expect(actual.otherOrders.length).toEqual(1)
 		expect(actual.otherOrders[0].OrderID).toEqual(OtherOrders[0].OrderID)
 	})
-	it("should handle replacing order", () => { })
+	it("should handle replacing order", () => {
+		const state = userReducer(initialState, addUser(specUser))
+		const testState = userReducer(state,replaceOrder(OtherOrders[0]))
+		expect(testState.currentOrder.OrderID).toEqual(OtherOrders[0].OrderID)
+		expect(testState.otherOrders.length).toEqual(1)
+		expect(testState.otherOrders[0].OrderID).toEqual(specUser.OrderID)
+	})
 })
