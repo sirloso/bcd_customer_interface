@@ -1,12 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
 import { UserData } from '../api/userApi';
 import { RootState } from './store';
+import { UserRequest } from '../utils/types';
 
 export interface UserState{
 	currentOrder: UserData,
 	otherOrders: Array<UserData>
 	userID: string,
 	email: string,
+	Error?: string
 }
 
 export const initialState: UserState = {
@@ -15,6 +17,8 @@ export const initialState: UserState = {
 	userID: "",
 	email: ""	
 }
+
+export const getUser = createAction<UserRequest>("user/getUser")
 
 export const userSlice = createSlice({
 	name: "user",
@@ -41,13 +45,23 @@ export const userSlice = createSlice({
 
 			state.currentOrder = action.payload
 			state.otherOrders = otherOrders
+		},
+		getUserFailure: (state,action: PayloadAction<string>) => {
+			state.Error = action.payload
 		}
+	},
+	extraReducers: (builder) => {
+		builder
+		  .addCase(getUser,()=>{
+			  //todo probably a logger
+		  })
+		  .addDefaultCase(()=>{})
 	}
 })
 
 export const getCurrentOrder = (state: RootState) => state.user.currentOrder
 export const getOtherOrders = (state: RootState) => state.user.otherOrders
 
-export const { addUser, replaceOrder } = userSlice.actions
+export const { addUser, replaceOrder, getUserFailure } = userSlice.actions
 
 export default userSlice.reducer
