@@ -16,6 +16,7 @@ export function* fetchUser(action: Action):any {
       const user = yield call(api.getUser,ur.CustomerID,ur.OrderID)
       yield put(addUser(user));
    } catch (e) {
+      console.log(e)
       yield put(getUserFailure("failed getting user"));
    }
 }

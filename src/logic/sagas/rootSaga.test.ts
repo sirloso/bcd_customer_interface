@@ -19,7 +19,7 @@ describe("root saga working", () => {
 				return Promise.resolve(dummyUser)
 			})
 
-		const result = await runSaga({
+		await runSaga({
 			dispatch: (action: any) => dispatched.push(action),
 			getState: () => {
 				return {} as actions.UserState

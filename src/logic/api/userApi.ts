@@ -1,6 +1,6 @@
 import superagent from "superagent"
 
-const ENDPOINT_URL = "localhost:1234/cusomter"
+const ENDPOINT_URL = "http://localhost:9876/customer"
 const PASSWORD = ""
 
 /*--types----------*/
@@ -14,13 +14,15 @@ export interface UserData{
 	BlankRolls: string,
 	ShippingLink: string,
 	RequestedShipping: string, 
-	BCDURL: string,
+	BcdUrl: string,
 	OtherOrders?: Array<UserData>
 }
 
 /*--getters----------*/
 export const getUser = async (user:string, order:string ): Promise<UserData> => {
-	let resp = await superagent(createURL(user,order))
+	let url = createURL(user,order)
+	console.log(url)
+	let resp = await superagent(url)
 
 	if(resp.statusCode!==200){
 		console.log(resp.error)
@@ -28,7 +30,7 @@ export const getUser = async (user:string, order:string ): Promise<UserData> => 
 	}
 
 	let _userData = resp.body
-	let userData: UserData = JSON.parse(_userData)
+	let userData: UserData = _userData
 
 	return Promise.resolve(userData)
 }

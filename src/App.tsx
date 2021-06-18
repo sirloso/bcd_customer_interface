@@ -17,7 +17,7 @@ function App() {
         <DevTools />
       )
     }
-    <Router>
+    <Router className="router">
       <Home path="/"/>
       <Summary path="/summary/:customerID/:orderID" />
     </Router>
