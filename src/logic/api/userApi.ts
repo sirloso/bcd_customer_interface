@@ -1,7 +1,7 @@
 import superagent from "superagent"
 
 const ENDPOINT_URL = "http://localhost:9876/customer"
-const PASSWORD = ""
+// const PASSWORD = ""
 
 /*--types----------*/
 export interface UserData{
